@@ -1,0 +1,58 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                                controllers.ApplicationController.index
+GET         /api/signOut                         controllers.ApplicationController.signOut
+GET         /authenticate/:provider          controllers.SocialAuthController.authenticate(provider)
+
+GET         /signUp                          controllers.SignUpController.view
+POST        /signUp                          controllers.SignUpController.submit
+
+GET         /signIn                          controllers.SignInController.view
+POST        /signIn                          controllers.SignInController.submit
+
+GET         /password/forgot                 controllers.ForgotPasswordController.view
+POST        /password/forgot                 controllers.ForgotPasswordController.submit
+GET         /password/reset/:token           controllers.ResetPasswordController.view(token: java.util.UUID)
+POST        /password/reset/:token           controllers.ResetPasswordController.submit(token: java.util.UUID)
+GET         /password/change                 controllers.ChangePasswordController.view
+POST        /password/change                 controllers.ChangePasswordController.submit
+
+GET         /account/email/:email            controllers.ActivateAccountController.send(email: String)
+GET         /account/activate/:token         controllers.ActivateAccountController.activate(token: java.util.UUID)
+
+GET         /api/getproducts                controllers.ProductController.getProducts
+GET         /api/getproduct/:id             controllers.ProductController.getProduct(id: Long)
++nocsrf
+POST        /api/addproduct                 controllers.ProductController.addProduct
++nocsrf
+PUT       /api/editproduct/:id                 controllers.ProductController.editProduct(id: Long)
++nocsrf
+DELETE       /api/deleteproduct/:id                 controllers.ProductController.deleteProduct(id: Long)
+GET         /api/getcategories              controllers.CategoryController.getCategories
++nocsrf
+POST        /api/addcategory                controllers.CategoryController.addCategory
+#POST        /api/editcategory                controllers.CategoryController.addCategory
+
+GET     /api/user/identity                         controllers.UserController.getUser
+GET     /api/user/:idProvider                           controllers.UserController.getById(idProvider: String)
+GET     /api/users/all                           controllers.UserController.getUsers
+DELETE     /api/user/:id                           controllers.UserController.deleteUser(id: Long)
+
+#GET     /api/order/:id                  controllers.OrderController.getOrder(id: Integer)
+GET     /api/orders/all/:userId                     controllers.OrderController.getOrdersByUser(userId: Integer)
+GET     /api/order/:id                     controllers.OrderController.getOrder(id: Long)
+GET     /api/orders                     controllers.OrderController.getOrders
++nocsrf
+DELETE     /api/order/delete/:id                    controllers.OrderController.delete(id: Long)
++nocsrf
+POST    /api/addorder                  controllers.OrderController.addOrder
++nocsrf
+POST    /api/orderedproduct/add                  controllers.OrderedProductController.addOrderedProduct
+GET    /api/orderedproduct/get/:order_id                controllers.OrderedProductController.getOrderedProducts(order_id: Integer)
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                    controllers.Assets.versioned(file)
+->          /webjars                         webjars.Routes
