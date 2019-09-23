@@ -54,40 +54,40 @@ class AddProduct extends Component {
                     <form onSubmit={this.postData}>
                         <div className="center">
 
-                            <label htmlFor="product_name">Product name</label>
+                            <label htmlFor="product_name">Nazwa produktu</label>
                             <input id="product_name"
                                    required={true}
                                    name="product_name" type="text"
-                                   placeholder="Enter product name"
+                                   placeholder="Wpisz nazwe produktu"
                                    onChange={(e) => this.handleChange(e)}/>
 
-                            <label htmlFor="product_description">Product description</label>
+                            <label htmlFor="product_description">Opis produktu</label>
                             <input id="product_description"
                                    required={true}
                                    name="product_description" type="text"
-                                   placeholder="Enter product description"
+                                   placeholder="Wpisz opis produktu"
                                    onChange={(e) => this.handleChange(e)}/>
 
 
-                            <label htmlFor="formControlsSelect">Choose category</label>
+                            <label htmlFor="formControlsSelect">Kategoria produktu</label>
                             <select id="formControlsSelect"
                                     required="required"
                                     className="browser-default"
-                                    placeholder="Choose category"
+                                    placeholder="Wybierz kategorie"
                                     name="product_category"
                                     value={this.state.value}
                                     onChange={(e) => this.handleChange(e)}>
-                                <option value="" selected disabled hidden>Choose category</option>
+                                <option value="" selected disabled hidden>Wybierz kategorie</option>
                                 {catConst.map(this.renderOption)} </select>
 
-                            <label htmlFor="product_price">Product price ($)</label>
+                            <label htmlFor="product_price">Cena</label>
                             <input id="product_price"
                                    required={true}
                                    name="product_price" type="number"
-                                   placeholder="Enter product price"
+                                   placeholder="Wprowadz cene"
                                    onChange={(e) => this.handleChange(e)}/>
 
-                            <button>Add product</button>
+                            <button>Dodaj produkt</button>
                         </div>
                     </form>
                 </div>

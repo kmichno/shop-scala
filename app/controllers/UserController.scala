@@ -20,31 +20,19 @@ class UserController @Inject() (
 
   def deleteUser(id: Long) = silhouette.SecuredAction.async { implicit request =>
     userRepository.delete(id).map { user =>
-      Ok(Json.toJson(user)).withHeaders(
-        "Access-Control-Allow-Origin" -> "http://localhost:3000", "Access-Control-Allow-Methods" -> "OPTIONS, GET, POST, PUT, DELETE, HEAD" // OPTIONS for pre-flight
-        , "Access-Control-Allow-Headers" -> "Accept, Content-Type, Origin, X-Json, X-Prototype-Version, X-Requested-With" //, "X-My-NonStd-Option"
-        , "Access-Control-Allow-Credentials" -> "true"
-      )
+      Ok(Json.toJson(user))
     }
   }
 
   def getUsers = silhouette.SecuredAction.async { implicit request =>
     userRepository.list().map { users =>
-      Ok(Json.toJson(users)).withHeaders(
-        "Access-Control-Allow-Origin" -> "http://localhost:3000", "Access-Control-Allow-Methods" -> "OPTIONS, GET, POST, PUT, DELETE, HEAD" // OPTIONS for pre-flight
-        , "Access-Control-Allow-Headers" -> "Accept, Content-Type, Origin, X-Json, X-Prototype-Version, X-Requested-With" //, "X-My-NonStd-Option"
-        , "Access-Control-Allow-Credentials" -> "true"
-      )
+      Ok(Json.toJson(users))
     }
   }
 
-  def getById(idProvider: String) = Action.async { implicit request =>
+  def getById(idProvider: String) = silhouette.SecuredAction.async { implicit request =>
     userRepository.getByProvider(idProvider).map { user =>
-      Ok(Json.toJson(user)).withHeaders(
-        "Access-Control-Allow-Origin" -> "http://localhost:3000", "Access-Control-Allow-Methods" -> "OPTIONS, GET, POST, PUT, DELETE, HEAD" // OPTIONS for pre-flight
-        , "Access-Control-Allow-Headers" -> "Accept, Content-Type, Origin, X-Json, X-Prototype-Version, X-Requested-With" //, "X-My-NonStd-Option"
-        , "Access-Control-Allow-Credentials" -> "true"
-      )
+      Ok(Json.toJson(user))
     }
   }
 

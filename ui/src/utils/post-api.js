@@ -26,7 +26,7 @@ function addOrder(user_id, address, amount) {
 }
 
 function addCategory(category_name) {
-  const url = `${BASE_URL}/api/addcategory`;
+  const url = `/api/addcategory`;
   return axios
     .post(url, {category_name: category_name})
     .then(response => response.data);

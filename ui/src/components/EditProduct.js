@@ -101,7 +101,7 @@ console.log(this.props)
                                    placeholder="Wprowadz cene"
                                    onChange={(e) => this.handleChange(e)}/>
 
-                            <button>Add product</button>
+                            <button>Edytuj produkt</button>
                         </div>
                     </form>
                 </div>

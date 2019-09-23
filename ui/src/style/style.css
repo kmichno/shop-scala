@@ -15,6 +15,10 @@
     color: white;
 }
 
+.product.admin .product-content.all-width {
+    width: 100%;
+}
+
 a.shop{
     color: white;
     text-decoration: none !important;

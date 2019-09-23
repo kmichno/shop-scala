@@ -19,27 +19,19 @@ class OrderController @Inject() (
   extends MessagesAbstractController(cc) {
   val logger = Logger("OrderController")
 
-  def getOrders = Action.async { implicit request =>
+  def getOrders = silhouette.SecuredAction.async { implicit request =>
     repo.list().map { orders =>
-      Ok(Json.toJson(orders)).withHeaders(
-        "Access-Control-Allow-Origin" -> "http://localhost:3000", "Access-Control-Allow-Methods" -> "OPTIONS, GET, POST, PUT, DELETE, HEAD" // OPTIONS for pre-flight
-        , "Access-Control-Allow-Headers" -> "Accept, Content-Type, Origin, X-Json, X-Prototype-Version, X-Requested-With" //, "X-My-NonStd-Option"
-        , "Access-Control-Allow-Credentials" -> "true"
-      )
+      Ok(Json.toJson(orders))
     }
   }
 
-  def getOrdersByUser(user_id: Integer) = Action.async { implicit request =>
+  def getOrdersByUser(user_id: Integer) = silhouette.SecuredAction.async { implicit request =>
     repo.getOrdersByUser(user_id).map { orders =>
-      Ok(Json.toJson(orders)).withHeaders(
-        "Access-Control-Allow-Origin" -> "http://localhost:3000", "Access-Control-Allow-Methods" -> "OPTIONS, GET, POST, PUT, DELETE, HEAD" // OPTIONS for pre-flight
-        , "Access-Control-Allow-Headers" -> "Accept, Content-Type, Origin, X-Json, X-Prototype-Version, X-Requested-With" //, "X-My-NonStd-Option"
-        , "Access-Control-Allow-Credentials" -> "true"
-      )
+      Ok(Json.toJson(orders))
     }
   }
 
-  def addOrder = Action { implicit request =>
+  def addOrder = silhouette.SecuredAction { implicit request =>
     logger.debug("asdfasdfasdfasdfasdfasfsdafasdf")
     logger.warn("asdfasdfasdfasdfasdfasfsdafasdf")
     val user_id = request.body.asJson.get("user_id").as[Int]
@@ -50,30 +42,18 @@ class OrderController @Inject() (
 
     Await.result(order, Duration.Inf)
     var createdOrder: Order = order.value.get.get
-    Ok(Json.toJson(createdOrder)).withHeaders(
-      "Access-Control-Allow-Origin" -> "http://localhost:3000", "Access-Control-Allow-Methods" -> "OPTIONS, GET, POST, PUT, DELETE, HEAD" // OPTIONS for pre-flight
-      , "Access-Control-Allow-Headers" -> "Accept, Content-Type, Origin, X-Json, X-Prototype-Version, X-Requested-With" //, "X-My-NonStd-Option"
-      , "Access-Control-Allow-Credentials" -> "true"
-    )
+    Ok(Json.toJson(createdOrder))
   }
 
-  def getOrder(id: Long) = Action.async { request =>
+  def getOrder(id: Long) = silhouette.SecuredAction.async { request =>
     repo.getOrder(id).map(order =>
-      Ok(Json.toJson(order)).withHeaders(
-        "Access-Control-Allow-Origin" -> "http://localhost:3000", "Access-Control-Allow-Methods" -> "OPTIONS, GET, POST, PUT, DELETE, HEAD" // OPTIONS for pre-flight
-        , "Access-Control-Allow-Headers" -> "Accept, Content-Type, Origin, X-Json, X-Prototype-Version, X-Requested-With" //, "X-My-NonStd-Option"
-        , "Access-Control-Allow-Credentials" -> "true"
-      )
+      Ok(Json.toJson(order))
     )
   }
 
-  def delete(id: Long) = Action.async { request =>
+  def delete(id: Long) = silhouette.SecuredAction.async { request =>
     repo.remove(id).map { basket =>
-      Ok(Json.toJson(basket)) withHeaders (
-        "Access-Control-Allow-Origin" -> "http://localhost:3000", "Access-Control-Allow-Methods" -> "OPTIONS, GET, POST, PUT, DELETE, HEAD" // OPTIONS for pre-flight
-        , "Access-Control-Allow-Headers" -> "Accept, Content-Type, Origin, X-Json, X-Prototype-Version, X-Requested-With" //, "X-My-NonStd-Option"
-        , "Access-Control-Allow-Credentials" -> "true"
-      )
+      Ok(Json.toJson(basket))
     }
   }
 }

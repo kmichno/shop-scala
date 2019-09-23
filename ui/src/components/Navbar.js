@@ -49,8 +49,6 @@ class Navbar extends Component {
         <div className="nav-wrapper">
             <div className="container">
                 <ul className="left hide-on-med-and-down">
-                {/*<Link to="/" className="brand-logo center">Shopping</Link>*/}
-
                     <li><Link to="/">Sklep</Link></li>
                     <li><Link to="/cart">Koszyk</Link></li>
                     {this.state.isLogged ?
@@ -62,6 +60,8 @@ class Navbar extends Component {
                             <li><Link to="/addProduct">Dodaj produkt</Link></li>
                             <li><Link to="/product/list">Lista produktów</Link></li>
                             <li><Link to="/order/admin">Lista zamówień</Link></li>
+                            <li><Link to="/addCategory">Dodaj kategorie</Link></li>
+                            <li><Link to="/category/list">Lista kategorii</Link></li>
                         </span>
                         : null
                     }

@@ -32,9 +32,13 @@ PUT       /api/editproduct/:id                 controllers.ProductController.edi
 +nocsrf
 DELETE       /api/deleteproduct/:id                 controllers.ProductController.deleteProduct(id: Long)
 GET         /api/getcategories              controllers.CategoryController.getCategories
+GET         /api/getcategory/:id              controllers.CategoryController.getCategory(id: Long)
 +nocsrf
 POST        /api/addcategory                controllers.CategoryController.addCategory
-#POST        /api/editcategory                controllers.CategoryController.addCategory
++nocsrf
+PUT        /api/editcategory/:id                controllers.CategoryController.editCategory(id: Long)
++nocsrf
+DELETE        /api/deletecategory/:id                controllers.CategoryController.deleteCategory(id: Long)
 
 GET     /api/user/identity                         controllers.UserController.getUser
 GET     /api/user/:idProvider                           controllers.UserController.getById(idProvider: String)

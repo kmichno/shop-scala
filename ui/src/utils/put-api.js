@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = 'http://localhost:9000';
 axios.defaults.withCredentials = true;
 
-export {editProduct, updateCategory, updateUser};
+export {editProduct, editCategory, updateUser};
 
 
 function editProduct(product_id, product_name, product_description, product_category, product_price) {
@@ -16,8 +16,8 @@ function editProduct(product_id, product_name, product_description, product_cate
     }).then(response => response.data);
 }
 
-function updateCategory(category_id, category_name) {
-    const url = `${BASE_URL}/api/updateCategory/` + category_id;
+function editCategory(category_id, category_name) {
+    const url = `/api/editcategory/` + category_id;
     return axios.put(url, {
         category_name: category_name
     }).then(response => response.data);

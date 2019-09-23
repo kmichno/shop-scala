@@ -13,7 +13,8 @@ export {
   getOrders,
     getUser,
     signOut,
-    getUserIdentity
+    getUserIdentity,
+    getCategory
 };
 
 axios.defaults.withCredentials = true;
@@ -80,6 +81,13 @@ function getCategories() {
   return axios
     .get(url)
     .then(response => response.data);
+}
+
+function getCategory(category_id) {
+    const url = `/api/getcategory/` + category_id;
+    return axios
+        .get(url)
+        .then(response => response.data);
 }
 
 function getBasket() {

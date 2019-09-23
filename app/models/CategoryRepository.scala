@@ -27,7 +27,7 @@ class CategoryRepository @Inject() (dbConfigProvider: DatabaseConfigProvider)(im
   class CategoryTable(tag: Tag) extends Table[Category](tag, "category") {
 
     /** The ID column, which is the primary key, and auto incremented */
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
     /** The name column */
     def name = column[String]("name")
@@ -66,10 +66,29 @@ class CategoryRepository @Inject() (dbConfigProvider: DatabaseConfigProvider)(im
     ) += (name)
   }
 
+  def select(id: Long): Future[Option[Category]] = db.run {
+    category.filter(_.id === id)
+      .result
+      .headOption
+  }
+
+  def update(id: Long, name: String): Future[Int] = {
+    val q = category.filter(_.id === id)
+      .map(x => (x.name))
+      .update((name))
+
+    db.run(q)
+  }
+
   /**
    * List all the people in the database.
    */
   def list(): Future[Seq[Category]] = db.run {
     category.result
+  }
+
+  def delete(id: Long): Future[Int] = {
+    val q = category.filter(_.id === id).delete
+    db.run(q)
   }
 }

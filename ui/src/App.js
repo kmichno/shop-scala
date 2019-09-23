@@ -6,7 +6,9 @@ import NavHome from "./components/NavHome";
 import NavAddProduct from "./components/NavAddProduct";
 import NavProductList from "./components/NavProductList";
 import NavAddCategory from "./components/NavAddCategory";
+import NavCategoryList from "./components/NavCategoryList";
 import NavEditProduct from "./components/NavEditProduct";
+import NavEditCategory from "./components/NavEditCategory";
 import NavOrder from "./components/NavOrder";
 import NavOrderDetails from "./components/NavOrderDetails";
 import NavOrderProducts from "./components/NavOrderProducts";
@@ -24,8 +26,10 @@ class App extends Component {
                             <Route path="/cart" component={NavCart}/>
                             <Route path="/addProduct" component={NavAddProduct}/>
                             <Route path="/product/edit/:id" component={NavEditProduct}/>
+                            <Route path="/category/edit/:id" component={NavEditCategory}/>
                             <Route path="/product/list" component={NavProductList}/>
                             <Route path="/addCategory" component={NavAddCategory}/>
+                            <Route path="/category/list" component={NavCategoryList}/>
                             <Route path="/order/:admin" component={NavOrder}/>
                             <Route path="/orderProducts" component={NavOrderProducts}/>
                             <Route path="/orderDetails/:id/:admin" component={NavOrderDetails}/>

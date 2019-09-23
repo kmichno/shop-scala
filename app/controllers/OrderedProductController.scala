@@ -23,12 +23,11 @@ class OrderedProductController @Inject() (
 
   def getOrderedProducts(order_id: Integer) = Action.async { implicit request =>
     repo.getOrderedProduct(order_id).map(order =>
-      Ok(Json.toJson(order)).withHeaders(
-        "Access-Control-Allow-Origin" -> "*")
+      Ok(Json.toJson(order))
     )
   }
 
-  def addOrderedProduct = Action { implicit request =>
+  def addOrderedProduct = silhouette.SecuredAction { implicit request =>
     val order_id = request.body.asJson.get("order_id").as[Int]
     val product_id = request.body.asJson.get("product_id").as[Int]
     val quantity = request.body.asJson.get("quantity").as[Int]
@@ -37,8 +36,7 @@ class OrderedProductController @Inject() (
 
     Await.result(orderedProduct, Duration.Inf)
     var id = orderedProduct.value.get.get
-    Ok(Json.toJson(id)).withHeaders(
-      "Access-Control-Allow-Origin" -> "*")
+    Ok(Json.toJson(id))
   }
 
 }

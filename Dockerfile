@@ -1,17 +1,28 @@
-FROM debian
+FROM ubuntu:18.04
 
-MAINTAINER Adrian Graczyk
+MAINTAINER Kamil Michno <kamyk43.michno@student.uj.edu.pl>
 
-RUN apt update
+RUN useradd ujot --create-home
 
-RUN apt install -y scala git wget
+RUN apt-get update
+RUN apt-get install -y vim unzip curl git
+    
+ENV SBT_OPTS -Xmx2G -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xss2M -Duser.timezone=GMT
+	
+RUN apt-get install -y gnupg2 apt-utils ca-certificates
 
-RUN mkdir /usr/lib/slick
+RUN apt-get install -y openjdk-8-jdk && \
+    apt-get clean;
+RUN apt-get install ca-certificates-java && \
+    apt-get clean && \
+    update-ca-certificates -f;
 
-RUN git clone https://github.com/slick/slick.git /usr/lib/slick/
+RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
 
-RUN mkdir /home/sbt
+RUN apt-get update
+RUN apt-get install -y scala sbt
 
-RUN wget https://dl.bintray.com/sbt/debian/sbt-1.1.1.deb -P /home/sbt/
+USER ujot
 
-RUN dpkg -i /home/sbt/sbt-1.1.1.deb
+CMD echo "Hello World"
